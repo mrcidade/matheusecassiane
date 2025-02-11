@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matheus e Cassiane</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/fundo.png');
+            background-size: contain;
+            background-position: center;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic; /* Título em itálico */
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .counter-box {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            border-radius: 10px;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .counter-box span {
+            display: block;
+            font-size: 2rem;
+        }
+
+        #photoContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 20px;
+        }
+
+        .section {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+
+        .polaroid {
+            display: inline-block;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .polaroid p {
+            margin: 10px 0 0;
+            font-size: 1rem;
+            color: #4a4a4a;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .counter-box {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+
+            .counter-box span {
+                font-size: 1.5rem;
+            }
+
+            .section h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <script>
+        
+        function calculateTimeTogether() {
+            const startDate = new Date('2024-02-14');
+            const now = new Date();
+
+            // Calcula a diferença em milissegundos
+            const diffTime = now - startDate;
+
+            // Converte milissegundos para dias
+            const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            document.getElementById('counter-days').textContent = days;
+            document.getElementById('counter-hours').textContent = hours;
+            document.getElementById('counter-minutes').textContent = minutes;
+            document.getElementById('counter-seconds').textContent = seconds;
+
+            setTimeout(calculateTimeTogether, 1000);
+        }
+
+        function loadImages() {
+    const startDate = new Date('2024-02-14');
+    const today = new Date();
+    const container = document.getElementById('photoContainer');
+
+    let currentDate = new Date(startDate);
+    let month = 1; // Começa de 1, pois fevereiro é o primeiro mês
+
+    const messages = {
+        1: "Alguns dias antes do pedido oficial 👀",
+        2: "Casamento Biel e Julia 💍",
+        3: "Primeira vez na nossa hamburgueria favorita 🍔",
+        4: "Expo + Rodeio 🤠🐎",
+        5: "Sua foto favorita :)",
+        6: "Noiz di caipira 👩‍🌾",
+        7: "Um dia frio ❄️",
+        8: "Chris Burguer novamente 🍔",
+        9: "Um dia marcante no circo 🎪",
+        10: "In my house 🎬",
+        11: "Confra da One 🍹"
+    };
+
+    while (currentDate < today) { // Agora o loop vai de fevereiro até janeiro de 2025, sem duplicar
+        const section = document.createElement('div');
+        section.className = 'section';
+
+        const title = document.createElement('h3');
+        title.textContent = currentDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+        section.appendChild(title);
+
+        const polaroid = document.createElement('div');
+        polaroid.className = 'polaroid';
+
+        const img = document.createElement('img');
+        img.src = `images/mes-${month}.jpg`;
+        img.alt = `Foto de ${title.textContent}`;
+        polaroid.appendChild(img);
+
+        const caption = document.createElement('p');
+        caption.textContent = `${messages[month] || ''}`;
+        polaroid.appendChild(caption);
+
+        section.appendChild(polaroid);
+        container.appendChild(section);
+
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        month++;
+    }
+
+    // Agora só adicionamos manualmente a foto de fevereiro
+    const februarySection = document.createElement('div');
+    februarySection.className = 'section';
+
+    const februaryTitle = document.createElement('h3');
+    februaryTitle.textContent = 'Fevereiro 2024';
+    februarySection.appendChild(februaryTitle);
+
+    const februaryPolaroid = document.createElement('div');
+    februaryPolaroid.className = 'polaroid';
+
+    const februaryImg = document.createElement('img');
+    februaryImg.src = 'images/mes-13.jpg'; // Foto de fevereiro
+    februaryImg.alt = 'Meu aniversário hihi';
+    februaryPolaroid.appendChild(februaryImg);
+
+    const februaryCaption = document.createElement('p');
+    februaryCaption.textContent = 'Meu aniversário hihi 🎂';
+    februaryPolaroid.appendChild(februaryCaption);
+
+    februarySection.appendChild(februaryPolaroid);
+    container.appendChild(februarySection);
+}
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateTimeTogether();
+            loadImages();
+        });
+    </script>
+</head>
+<body>
+    <h1>Matheus e Cassiane</h1>
+    <div class="counter">
+        <div class="counter-box">
+            <span id="counter-days">0</span>
+            dias
+        </div>
+        <div class="counter-box">
+            <span id="counter-hours">0</span>
+            horas
+        </div>
+        <div class="counter-box">
+            <span id="counter-minutes">0</span>
+            minutos
+        </div>
+        <div class="counter-box">
+            <span id="counter-seconds">0</span>
+            segundos
+        </div>
+    </div>
+    <div id="photoContainer"></div>
+</body>
+</html>
